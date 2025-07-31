@@ -372,7 +372,7 @@ export default function viewTC({params}:{params : {id:string}}) {
                         {/* <div className="text-center text-xs text-gray-500 mt-8">
                         <p>This is a computer generated transfer certificate.</p>
                         <p>For any queries, please contact the school administration.</p>
-                        </div> */}>
+                        </div> */}
                     </CardContent>
                     <CardFooter className=" flex flex-col justify-center">
                         {/* Signature Section */}
