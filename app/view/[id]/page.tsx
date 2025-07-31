@@ -378,37 +378,26 @@ export default function viewTC({params}:{params : {id:string}}) {
                         </>
                         )} */}
 
-                        
+                        {/* Signature Section */}
+                        <div className="flex justify-between items-end pt-8">
+                        <div className="text-center">
+                            <div className="border-t border-gray-400 w-48 mb-2"></div>
+                            <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
+                        </div>
+                        <div className="text-center">
+                            <div className="border-t border-gray-400 w-48 mb-2"></div>
+                            <p className="text-sm text-gray-600">Principal</p>
+                        </div>
+                        </div>
 
                         {/* <div className="text-center text-xs text-gray-500 mt-8">
                         <p>This is a computer generated transfer certificate.</p>
                         <p>For any queries, please contact the school administration.</p>
                         </div> */}
 
-                        {/* <p className="mt-auto text-center text-xs text-blue-700 font-extrabold">
-                        @ Developed by Kankane Tech Contact us at : kankanetech@gmail.com
-                        </p> */}
+                        <p className="text-center text-xs text-blue-700 font-extrabold">@ Developed by Kankane Tech </p>
+                        <p className="text-center text-xs text-blue-700 font-extrabold">Contact us at : kankanetech@gmail.com </p>
                     </CardContent>
-                        <CardFooter className=" flex flex-col justify-center">
-                            {/* Signature Section */}
-                        <div className="flex justify-around items-end w-full gap-8">
-                        <div className="text-center">
-                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
-                            <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
-                        </div>
-                        <div className="text-center">
-                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
-                            <p className="text-sm text-gray-600">Prepared By</p>
-                        </div>
-                        <div className="text-center">
-                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
-                            <p className="text-sm text-gray-600">Principal</p>
-                        </div>
-                        </div>
-                            <p className="text-center text-xs text-blue-700 font-extrabold mt-2">
-                            @ Developed by Kankane Tech, Contact us at : kankanetech@gmail.com
-                            </p>
-                        </CardFooter>
                     </Card>
                 </div>
             </div>
