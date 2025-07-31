@@ -62,6 +62,7 @@ const formSchema = z.object({
   address:z.string().min(10,{ message: "This field is required" }),
   panNumber:z.string().min(10,{message:"This field is required"}),
   nationality:z.string().min(1, {message:"This field is required"}),
+  addharCard:z.string().min(12, {message:"This field is required"}),
 
   dateOfAdmission: z.string().min(1),
   dateOfLeaving: z.string().min(1),
@@ -98,6 +99,8 @@ export default function CreateTC() {
       address:"",
       panNumber:"",
       nationality:"",
+      addharCard:"",
+
 
       dateOfAdmission: "",
       dateOfLeaving: "",
@@ -170,7 +173,9 @@ export default function CreateTC() {
                   ["motherNameHi", "Mother's Name Hindi *"],
                   ["rollNumber", "SR Number *"],
                   ["dateOfBirth", "Date of Birth *", "date"],
-                  ["panNumber", "PEN Number*"],
+                  ["panNumber", " Student PEN *"],
+                  ["caste", "Caste *"],
+                  ["addharCard", "Student Addhar *"],
                 ].map(([name, label, type = "text"]) => (
                   <FormField
                     key={name}
@@ -232,7 +237,7 @@ export default function CreateTC() {
                     </FormItem>
                   )}
                 />
-                <FormField
+                {/* <FormField
                     control={form.control}
                     name="caste"
                     render={({ field }) => (
@@ -253,7 +258,7 @@ export default function CreateTC() {
                         <FormMessage />
                       </FormItem>
                     )}
-                />
+                /> */}
                 <FormField
                   control={form.control}
                   name="nationality"

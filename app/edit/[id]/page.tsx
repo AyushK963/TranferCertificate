@@ -45,6 +45,7 @@ const tcSchema = z.object({
   address:z.string().min(1),
   panNumber:z.string().min(10).max(10),
   nationality:z.string().min(1).max(10),
+  addharCard:z.string().min(12).max(12),
 
   dateOfAdmission: z.string().min(1),
   dateOfLeaving: z.string().min(1),
@@ -161,9 +162,11 @@ export default function EditTC({ params }: { params: { id: string } }) {
                 { label: "Mother Name (English)", name: "motherName" },
                 { label: "Mother Name (Hindi)", name: "motherNameHi" },
                 { label: "SR Number", name: "rollNumber" },
+                { label: "Student Aadhar", name: "addharCard" },
                 { label: "Date of Birth", name: "dateOfBirth", type: "date" },
-                { label: "PAN Number", name: "panNumber" },
+                { label: " Student PEN ", name: "panNumber" },
                 { label: "Address", name: "address" },
+                { label: "Caste", name: "caste" },
               ] as const).map(({ label, name, type }) => (
                 <div key={name} className="space-y-2">
                   <Label htmlFor={name}>{label} *</Label>
@@ -209,27 +212,6 @@ export default function EditTC({ params }: { params: { id: string } }) {
                       <SelectContent>
                         {["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Other"].map(r => (
                           <SelectItem key={r} value={r}>{r}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                )}
-              />
-
-              {/* Caste dropdown */}
-              <Controller
-                control={control}
-                name="caste"
-                render={({ field }) => (
-                  <div className="space-y-2">
-                    <Label>Caste *</Label>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select caste" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {["General", "SC", "ST", "OBC"].map(c => (
-                          <SelectItem key={c} value={c}>{c}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

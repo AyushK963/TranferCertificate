@@ -22,6 +22,8 @@ export async function POST(req: Request) {
         address:data.address,
         panNumber:data.panNumber,
         nationality:data.nationality,
+        addharCard:data.addharCard,
+
 
         dateOfAdmission: data.dateOfAdmission, 
         dateOfLeaving: data.dateOfLeaving,

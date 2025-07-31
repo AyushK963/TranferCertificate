@@ -2,7 +2,7 @@
 import React from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { ArrowLeft, Trash, Edit, PrinterIcon as Print , Mail} from "lucide-react"
 import Link from "next/link"
@@ -189,7 +189,7 @@ export default function viewTC({params}:{params : {id:string}}) {
                 </div>
                 <div ref={contentRef} className="print-area text-black">
                     {/* TC Document */}
-                    <Card className="max-w-4xl mx-auto bg-white shadow-lg print:shadow-none w-full border-2 border-black">
+                    <Card className="w-full max-w-4xl mx-auto min-h-[1120px] flex flex-col bg-white shadow-lg print:shadow-none w-full border-2 border-black">
                     <CardHeader className="text-center border-b">
                     <div className="w-full flex justify-center mb-2">
                         <div className="flex items-center gap-4">
@@ -225,14 +225,15 @@ export default function viewTC({params}:{params : {id:string}}) {
                                 TC No: <span className="font-semibold">{tc.tcId}</span>
                             </p>
                             <p className="text-sm">
-                                Date: <span className="font-semibold">{formatDate(tc.issueDate)}</span>
+                               Issue Date: <span className="font-semibold">{formatDate(tc.issueDate)}</span>
                             </p>
                             </div>
                         </div>
                     </CardHeader>
+                    <Separator className="bg-black h-[1px]"/>
 
 
-                    <CardContent className="p-4 space-y-1">
+                    <CardContent className=" flex-grow p-4 space-y-1">
                         {/* Student Information */}
                         <div>
                         <h3 className="text-lg font-semibold mb-2 text-blue-700">Student Information</h3>
@@ -243,10 +244,6 @@ export default function viewTC({params}:{params : {id:string}}) {
                             <p className="font-semibold">{tc.studentNameHi}</p>
                             </div>
                             <div>
-                            <p className="text-sm text-gray-600">SR Number</p>
-                            <p className="font-semibold">{tc.rollNumber}</p>
-                            </div>
-                            <div>
                             <p className="text-sm text-gray-600">Father's Name</p>
                             <p className="font-semibold">{tc.fatherName.toUpperCase()}</p>
                             <p className="font-semibold">{tc.fatherNameHi}</p>
@@ -255,6 +252,10 @@ export default function viewTC({params}:{params : {id:string}}) {
                             <p className="text-sm text-gray-600">Mother's Name</p>
                             <p className="font-semibold">{tc.motherName.toUpperCase()}</p>
                             <p className="font-semibold">{tc.motherNameHi}</p>
+                            </div>
+                            <div>
+                            <p className="text-sm text-gray-600">SR Number</p>
+                            <p className="font-semibold">{tc.rollNumber}</p>
                             </div>
                             <div>
                             <p className="text-sm text-gray-600">Date of Birth</p>
@@ -283,15 +284,23 @@ export default function viewTC({params}:{params : {id:string}}) {
                             <p className="font-semibold">{tc.address}</p>
                             </div>
                             <div>
-                            <p className="text-sm text-gray-600" >PEN Number</p>
+                            <p className="text-sm text-gray-600" >Student PEN</p>
                             <p className="font-semibold">{tc.panNumber}</p>
                             </div>
                             <div>
                             <p className="text-sm text-gray-600" >Nationality</p>
                             <p className="font-semibold">{tc.nationality}</p>
                             </div>
+                            <div>
+                            <p className="text-sm text-gray-600">Student Aadhar</p>
+                            <p className="font-semibold">{tc.addharCard}</p>
+                            </div>
                             </div>
                         </div>
+
+                        <Separator className="bg-black h-[1px]"/>
+
+
                         {/* Academic Information */}
                         <div>
                         <h3 className="text-lg font-semibold mb-4 text-blue-700">Academic Information</h3>
@@ -369,26 +378,37 @@ export default function viewTC({params}:{params : {id:string}}) {
                         </>
                         )} */}
 
-                        {/* Signature Section */}
-                        <div className="flex justify-between items-end pt-8">
-                        <div className="text-center">
-                            <div className="border-t border-gray-400 w-48 mb-2"></div>
-                            <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="border-t border-gray-400 w-48 mb-2"></div>
-                            <p className="text-sm text-gray-600">Principal</p>
-                        </div>
-                        </div>
+                        
 
                         {/* <div className="text-center text-xs text-gray-500 mt-8">
                         <p>This is a computer generated transfer certificate.</p>
                         <p>For any queries, please contact the school administration.</p>
                         </div> */}
 
-                        <p className="text-center text-xs text-blue-700 font-extrabold">@ Developed by Kankane Tech </p>
-                        <p className="text-center text-xs text-blue-700 font-extrabold">Contact us at : kankanetech@gmail.com </p>
+                        {/* <p className="mt-auto text-center text-xs text-blue-700 font-extrabold">
+                        @ Developed by Kankane Tech Contact us at : kankanetech@gmail.com
+                        </p> */}
                     </CardContent>
+                        <CardFooter className=" flex flex-col justify-center">
+                            {/* Signature Section */}
+                        <div className="flex justify-around items-end w-full gap-8">
+                        <div className="text-center">
+                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
+                            <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
+                        </div>
+                        <div className="text-center">
+                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
+                            <p className="text-sm text-gray-600">Prepared By</p>
+                        </div>
+                        <div className="text-center">
+                            {/* <div className="border-t border-gray-400 w-48 mb-2"></div> */}
+                            <p className="text-sm text-gray-600">Principal</p>
+                        </div>
+                        </div>
+                            <p className="text-center text-xs text-blue-700 font-extrabold mt-2">
+                            @ Developed by Kankane Tech, Contact us at : kankanetech@gmail.com
+                            </p>
+                        </CardFooter>
                     </Card>
                 </div>
             </div>

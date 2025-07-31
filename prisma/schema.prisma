@@ -25,6 +25,7 @@ model TransferCertificate {
   address           String
   panNumber         String
   nationality       String 
+  addharCard           String
   
   dateOfAdmission   String
   dateOfLeaving     String
