@@ -19,7 +19,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex flex-col">
+    <div className="min-h-screen bg-cover bg-center flex flex-col bg-black">
       {/* Header */}
       <div className="text-center py-6 ">
         <p className="text-blue-800 text-3xl sm:text-4xl font-extrabold">
