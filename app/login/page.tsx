@@ -33,13 +33,13 @@ export default function LoginPage() {
 
       {/* Image */}
       <div className="flex justify-center mt-2">
-        <Image
+        {/* <Image
           src="/img.jpg"
           alt="Gandiji"
           width={100}
           height={100}
           className="rounded-full border border-gray-300 shadow-sm"
-        />
+        /> */}
       </div>
       <h1 className="text-black font-bold text-2xl items-center text-center mt-1">Transfer Certificate Management System </h1>
 
