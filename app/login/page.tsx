@@ -19,7 +19,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex flex-col bg-grey-500">
+    <div className="min-h-screen bg-cover bg-center flex flex-col bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="text-center py-6 ">
         <p className="text-blue-800 text-3xl sm:text-4xl font-extrabold">
