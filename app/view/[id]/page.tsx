@@ -1,10 +1,9 @@
 "use client"
 import React from "react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import { ArrowLeft, Trash, Edit, PrinterIcon as Print , Mail} from "lucide-react"
+import { ArrowLeft, Trash, Edit, PrinterIcon as Print} from "lucide-react"
 import Link from "next/link"
 import { convertDateToWords } from "@/lib/utils"
 import { useEffect, useState,useRef } from "react";
@@ -16,6 +15,7 @@ import html2canvas from "html2canvas";
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { formatDate } from "@/lib/utils"
+import { TCQRCode } from "@/components/tcqr"
 
 export default function viewTC({params}:{params : {id:string}}) {
 
@@ -148,6 +148,8 @@ export default function viewTC({params}:{params : {id:string}}) {
     //     console.log("Downloading TC...")
     // }
 
+    
+
     return (
 
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -189,215 +191,209 @@ export default function viewTC({params}:{params : {id:string}}) {
                 </div>
                 <div ref={contentRef} className="print-area text-black">
                     {/* TC Document */}
-                    <Card className="w-full max-w-4xl mx-auto min-h-[1120px] flex flex-col bg-white shadow-lg print:shadow-none w-full border-2 border-black">
-                    <CardHeader className="text-center border-b">
-                    <div className="w-full flex justify-center mb-2">
-                        <div className="flex items-center gap-4">
-                            <Image
-                            src="/img.jpg"
-                            alt="image"
-                            width={90}
-                            height={90}
-                            className="rounded-full object-cover"
-                            />
+                    <Card className="w-full max-w-4xl mx-auto min-h-[1120px] flex flex-col bg-white shadow-lg print:shadow-none border-2 border-black">
+                        <CardHeader className="text-center border-b">
+                        <div className="w-full flex justify-center mb-2">
+                            <div className="flex items-center gap-4">
+                                <Image
+                                src="/img.jpg"
+                                alt="image"
+                                width={90}
+                                height={90}
+                                className="rounded-full object-cover"
+                                />
 
-                            <div className="flex flex-col text-center">
-                            <h2 className="text-3xl font-bold text-blue-800">
-                                Shri Gandhi Inter College, Orai (Jalaun)
-                            </h2>
-                            <p className="text-lg">"शिक्षार्थ आइये, सेवार्थ जाइये"</p>
-                            <p className="text-xl  font-bold text-black-600">
-                                Station Road Orai Jalaun Uttar Pradesh
-                            </p>
-                            <p className=" text-xl  font-bold text-black-600">
-                                www.sgicorai.com | Email: sgicorai@gmail.com
-                            </p>
-                            <p className=" text-xl  font-bold text-black-600">
-                                UDISE:09351300212 | SchoolCode: 45-1032
-                            </p>
-                            </div>
-                        </div>
-                        </div>
-                        <div>
-                            <p className="text-xl text-center font-extrabold text-red-600">SCHOLAR REGISTER & TRANSFER CERTIFICATE</p>
-                            <div className="flex justify-between items-center">
-                            <p className="text-sm">
-                                TC No: <span className="font-semibold">{tc.tcId}</span>
-                            </p>
-                            <p className="text-sm">
-                               Issue Date: <span className="font-semibold">{formatDate(tc.issueDate)}</span>
-                            </p>
-                            </div>
-                        </div>
-                    </CardHeader>
-                    <Separator className="bg-black h-[1px]"/>
-
-
-                    <CardContent className=" flex-grow p-4 space-y-1">
-                        {/* Student Information */}
-                        <div>
-                        <h3 className="text-lg font-semibold mb-2 text-blue-700">Student Information</h3>
-                        <div className="grid grid-cols-4 gap-4">
-                            <div>
-                            <p className="text-sm text-gray-600">Student Name</p>
-                            <p className="font-semibold">{tc.studentName.toUpperCase()}</p>
-                            <p className="font-semibold">{tc.studentNameHi}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Father's Name</p>
-                            <p className="font-semibold">{tc.fatherName.toUpperCase()}</p>
-                            <p className="font-semibold">{tc.fatherNameHi}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Mother's Name</p>
-                            <p className="font-semibold">{tc.motherName.toUpperCase()}</p>
-                            <p className="font-semibold">{tc.motherNameHi}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">SR Number</p>
-                            <p className="font-semibold">{tc.rollNumber}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Date of Birth</p>
-                            <p className="font-semibold">{formatDate(tc.dateOfBirth)}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Religion</p>
-                            <p className="font-semibold">{tc.religion}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Caste</p>
-                            <p className="font-semibold">{tc.caste}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Gender</p>
-                            <p className="font-semibold">{tc.gender}</p>
-                            </div>
-                        </div>
-                        <div className=" grid grid-cols-4 mt-2 gap-4">
-                            <div>
-                            <p className="text-sm text-gray-600">Date of Birth in words</p>
-                            <p className="font-semibold">({convertDateToWords(tc.dateOfBirth.split('-').reverse().join('/'))})</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600" >Address</p>
-                            <p className="font-semibold">{tc.address}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600" >Student PEN</p>
-                            <p className="font-semibold">{tc.panNumber}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600" >Nationality</p>
-                            <p className="font-semibold">{tc.nationality}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Student Aadhar</p>
-                            <p className="font-semibold">{tc.addharCard}</p>
-                            </div>
-                            </div>
-                        </div>
-
-                        <Separator className="bg-black h-[1px]"/>
-
-
-                        {/* Academic Information */}
-                        <div>
-                        <h3 className="text-lg font-semibold mb-4 text-blue-700">Academic Information</h3>
-                        <div className="grid grid-cols-4 gap-4">
-                            <div>
-                            <p className="text-sm text-gray-600">Date of Admission</p>
-                            <p className="font-semibold">{formatDate(tc.dateOfAdmission)}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Date of Leaving</p>
-                            <p className="font-semibold">{formatDate(tc.dateOfLeaving)}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Last Class Attended</p>
-                            <p className="font-semibold">{tc.lastClassAttended}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Reason for Leaving</p>
-                            <p className="font-semibold">{tc.reasonForLeaving}</p>
-                            </div>
-                        </div>
-                        </div>
-
-                        <Separator className="bg-black h-[1px]"/>
-
-                        {/* School Information */}
-                        <div>
-                        <h3 className="text-lg font-semibold mb-4 text-blue-700">School Information</h3>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                            <p className="text-sm text-gray-600">School Leaving From</p>
-                            <p className="font-semibold">{tc.schoolLeavingFrom}</p>
-                            </div>
-                            <div>
-                            <p className="text-sm text-gray-600">Last Instituion Attended</p>
-                            <p className="font-semibold">{tc.schoolLeavingTo || "Not specified"}</p>
-                            </div>
-                        </div>
-                        <Separator className="bg-black h-[1px] mt-1"/>
-
-                        <div className="mt-6">
-                            <h4 className="text-md font-semibold text-blue-700 mb-2">Admission & Promotion History</h4>
-                            <div className="border border-gray-300 rounded-md overflow-hidden">
-                                <div className="grid grid-cols-5 bg-gray-100 text-sm font-medium text-gray-700 p-2 m-1">
-                                <div>Class</div>
-                                <div>Admission Date</div>
-                                <div>Promotion/Removal</div>
-                                <div>Session</div>
-                                <div>Conduct & Remark</div>
+                                <div className="flex flex-col text-center">
+                                <h2 className="text-3xl font-bold text-blue-800">
+                                    Shri Gandhi Inter College, Orai (Jalaun)
+                                </h2>
+                                <p className="text-lg">"शिक्षार्थ आइये, सेवार्थ जाइये"</p>
+                                <p className="text-xl  font-bold text-black-600">
+                                    Station Road Orai Jalaun Uttar Pradesh
+                                </p>
+                                <p className=" text-xl  font-bold text-black-600">
+                                    www.sgicorai.com | Email: sgicorai@gmail.com
+                                </p>
+                                <p className=" text-xl  font-bold text-black-600">
+                                    UDISE:09351300212 | SchoolCode: 45-1032
+                                </p>
                                 </div>
-                                {Array.isArray(tc.admissionHistory) && tc.admissionHistory.map((entry, index) => (
-                                <div
-                                    key={index}
-                                    className="grid grid-cols-5 text-sm text-gray-800 border-t border-black p-2"
-                                >
-                                    <div>{entry.className}</div>
-                                    <div>{formatDate(entry.admissionDate)}</div>
-                                    <div>{formatDate(entry.promotionDate)}</div>
-                                    <div>{entry.session}</div>
-                                    <div>{entry.conduct}</div>
+                            </div>
+                            </div>
+                            <div>
+                                <p className="text-xl text-center font-extrabold text-red-600">SCHOLAR REGISTER & TRANSFER CERTIFICATE</p>
+                                <div className="flex justify-between items-center">
+                                <p className="text-sm">
+                                    TC No: <span className="font-semibold">{tc.tcId}</span>
+                                </p>
+                                <p className="text-sm">
+                                Issue Date: <span className="font-semibold">{formatDate(tc.issueDate)}</span>
+                                </p>
                                 </div>
-                                ))}
                             </div>
-                        </div>
-                        </div>
-
+                        </CardHeader>
                         <Separator className="bg-black h-[1px]"/>
-                        {/* {tc.remarks && (
-                        <>
-                            <Separator />
-                            <div className="flex flex-row">
-                                <h3 className="text-lg font-semibold mb-4 text-blue-700">Remarks: : </h3>
-                                <p className="text-gray-700 text-center">{tc.remarks}</p>
+                        <CardContent className=" flex-grow p-4 space-y-1">
+                            {/* Student Information */}
+                            <div>
+                            <h3 className="text-lg font-semibold mb-2 text-blue-700">Student Information</h3>
+                            <div className="grid grid-cols-4 gap-4">
+                                <div>
+                                <p className="text-sm text-gray-600">Student Name</p>
+                                <p className="font-semibold">{tc.studentName.toUpperCase()}</p>
+                                <p className="font-semibold">{tc.studentNameHi}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Father's Name</p>
+                                <p className="font-semibold">{tc.fatherName.toUpperCase()}</p>
+                                <p className="font-semibold">{tc.fatherNameHi}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Mother's Name</p>
+                                <p className="font-semibold">{tc.motherName.toUpperCase()}</p>
+                                <p className="font-semibold">{tc.motherNameHi}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">SR Number</p>
+                                <p className="font-semibold">{tc.rollNumber}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Date of Birth</p>
+                                <p className="font-semibold">{formatDate(tc.dateOfBirth)}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Religion</p>
+                                <p className="font-semibold">{tc.religion}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Caste</p>
+                                <p className="font-semibold">{tc.caste}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Gender</p>
+                                <p className="font-semibold">{tc.gender}</p>
+                                </div>
                             </div>
-                        </>
-                        )} */}
+                            <div className=" grid grid-cols-4 mt-2 gap-4">
+                                <div>
+                                <p className="text-sm text-gray-600">Date of Birth in words</p>
+                                <p className="font-semibold">({convertDateToWords(tc.dateOfBirth.split('-').reverse().join('/'))})</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600" >Address</p>
+                                <p className="font-semibold">{tc.address}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600" >Student PEN</p>
+                                <p className="font-semibold">{tc.panNumber}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600" >Nationality</p>
+                                <p className="font-semibold">{tc.nationality}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Student Aadhar</p>
+                                <p className="font-semibold">{tc.addharCard}</p>
+                                </div>
+                                </div>
+                            </div>
 
-                        {/* Signature Section */}
-                        <div className="flex justify-between items-end pt-8">
-                        <div className="text-center">
-                            <div className="border-t border-gray-400 w-48 mb-2"></div>
+                            <Separator className="bg-black h-[1px]"/>
+
+
+                            {/* Academic Information */}
+                            <div>
+                            <h3 className="text-lg font-semibold mb-4 text-blue-700">Academic Information</h3>
+                            <div className="grid grid-cols-4 gap-4">
+                                <div>
+                                <p className="text-sm text-gray-600">Date of Admission</p>
+                                <p className="font-semibold">{formatDate(tc.dateOfAdmission)}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Date of Leaving</p>
+                                <p className="font-semibold">{formatDate(tc.dateOfLeaving)}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Last Class Attended</p>
+                                <p className="font-semibold">{tc.lastClassAttended}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Reason for Leaving</p>
+                                <p className="font-semibold">{tc.reasonForLeaving}</p>
+                                </div>
+                            </div>
+                            </div>
+
+                            <Separator className="bg-black h-[1px]"/>
+
+                            {/* School Information */}
+                            <div>
+                            <h3 className="text-lg font-semibold mb-4 text-blue-700">School Information</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                <p className="text-sm text-gray-600">School Leaving From</p>
+                                <p className="font-semibold">{tc.schoolLeavingFrom}</p>
+                                </div>
+                                <div>
+                                <p className="text-sm text-gray-600">Last Instituion Attended</p>
+                                <p className="font-semibold">{tc.schoolLeavingTo || "Not specified"}</p>
+                                </div>
+                            </div>
+                            <Separator className="bg-black h-[1px] mt-1"/>
+
+                            <div className="mt-6">
+                                <h4 className="text-md font-semibold text-blue-700 mb-2">Admission & Promotion History</h4>
+                                <div className="border border-gray-300 rounded-md overflow-hidden">
+                                    <div className="grid grid-cols-5 bg-gray-100 text-sm font-medium text-gray-700 p-2 m-1">
+                                    <div>Class</div>
+                                    <div>Admission Date</div>
+                                    <div>Promotion/Removal</div>
+                                    <div>Session</div>
+                                    <div>Conduct & Remark</div>
+                                    </div>
+                                    {Array.isArray(tc.admissionHistory) && tc.admissionHistory.map((entry, index) => (
+                                    <div
+                                        key={index}
+                                        className="grid grid-cols-5 text-sm text-gray-800 border-t border-black p-2"
+                                    >
+                                        <div>{entry.className}</div>
+                                        <div>{formatDate(entry.admissionDate)}</div>
+                                        <div>{formatDate(entry.promotionDate)}</div>
+                                        <div>{entry.session}</div>
+                                        <div>{entry.conduct}</div>
+                                    </div>
+                                    ))}
+                                </div>
+                            </div>
+                            </div>
+
+                            <Separator className="bg-black h-[1px]"/>
+                            <div className="mt-6" />
+                        </CardContent>
+                        <CardFooter className="mt-auto flex flex-col justify-end px-6 pt-6 pb-0">
+                        {/* Signature Section with spacing */}
+                        <div className="grid grid-cols-3 w-full text-center gap-4 mb-0">
+                            <div>
                             <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
-                        </div>
-                        <div className="text-center">
-                            <div className="border-t border-gray-400 w-48 mb-2"></div>
+                            </div>
+                            <div>
+                            <p className="text-sm text-gray-600">Prepared By</p>
+                            </div>
+                            <div>
                             <p className="text-sm text-gray-600">Principal</p>
-                        </div>
+                            </div>
                         </div>
 
-                        {/* <div className="text-center text-xs text-gray-500 mt-8">
-                        <p>This is a computer generated transfer certificate.</p>
-                        <p>For any queries, please contact the school administration.</p>
-                        </div> */}
+                        {/* QR Code */}
+                        <div className="flex justify-end w-full mb-4">
+                            <TCQRCode tcId={tc.tcId} />
+                        </div>
 
-                        <p className="text-center text-xs text-blue-700 font-extrabold">@ Developed by Kankane Tech </p>
-                        <p className="text-center text-xs text-blue-700 font-extrabold">Contact us at : kankanetech@gmail.com </p>
-                    </CardContent>
+                        {/* Developer Credit absolutely at bottom */}
+                        <div className="w-full text-center text-xs text-blue-700 font-extrabold py-2 border-t border-gray-300">
+                            @ Developed by Kankane Tech | Contact: kankanetech@gmail.com
+                        </div>
+                        </CardFooter>
                     </Card>
                 </div>
             </div>
