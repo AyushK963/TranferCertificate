@@ -16,5 +16,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|login).*)"], // protect all routes except /login
+  matcher: ["/((?!_next|favicon.ico|login|verify).*)"], // protect all routes except /login
 }
