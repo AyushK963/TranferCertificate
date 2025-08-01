@@ -1,6 +1,7 @@
 // app/verify/[tcId]/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { formatDate } from "@/lib/utils";
 import { CheckCircle, XCircle } from "lucide-react";
 ; // Or prisma if you used that
 
@@ -32,12 +33,13 @@ export default async function VerifyPage({ params }: { params: { tcId: string } 
         </div>
 
         <div className="space-y-2 text-gray-700 text-sm">
+          <p><strong>SR Number:</strong> {tc.rollNumber}</p>
           <p><strong>Student Name:</strong> {tc.studentName}</p>
           <p><strong>Father's Name:</strong> {tc.fatherName}</p>
           <p><strong>Mother's Name:</strong> {tc.motherName}</p>
-          <p><strong>TC ID:</strong> {tc.tcId}</p>
-          <p><strong>Date of Issue:</strong> {tc.issueDate}</p>
-          <p><strong>School:</strong> Shri Gnadhi Inter College</p>
+          <p><strong>DOB:</strong> {formatDate(tc.dateOfBirth)}</p>
+          <p><strong>Date of Issue:</strong> {formatDate(tc.issueDate)}</p>
+          <p><strong>School:</strong> Shri Gandhi Inter College</p>
         </div>
 
         <div className="mt-6 text-center text-xs text-gray-500">

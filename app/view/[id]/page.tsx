@@ -208,13 +208,13 @@ export default function viewTC({params}:{params : {id:string}}) {
                                     Shri Gandhi Inter College, Orai (Jalaun)
                                 </h2>
                                 <p className="text-lg">"शिक्षार्थ आइये, सेवार्थ जाइये"</p>
-                                <p className="text-xl  font-bold text-black-600">
+                                <p className="text  font-bold text-black-600">
                                     Station Road Orai Jalaun Uttar Pradesh
                                 </p>
-                                <p className=" text-xl  font-bold text-black-600">
+                                <p className=" text font-bold text-black-600">
                                     www.sgicorai.com | Email: sgicorai@gmail.com
                                 </p>
-                                <p className=" text-xl  font-bold text-black-600">
+                                <p className=" text font-bold text-black-600">
                                     UDISE:09351300212 | SchoolCode: 45-1032
                                 </p>
                                 </div>
@@ -233,7 +233,7 @@ export default function viewTC({params}:{params : {id:string}}) {
                             </div>
                         </CardHeader>
                         <Separator className="bg-black h-[1px]"/>
-                        <CardContent className=" flex-grow p-4 space-y-1">
+                        <CardContent className="flex-grow p-4 space-y-1">
                             {/* Student Information */}
                             <div>
                             <h3 className="text-lg font-semibold mb-2 text-blue-700">Student Information</h3>
@@ -371,10 +371,13 @@ export default function viewTC({params}:{params : {id:string}}) {
                             <div className="mt-6" />
                         </CardContent>
                         <CardFooter className="mt-auto flex flex-col justify-end px-6 pt-6 pb-0">
+                        <div className="flex justify-start w-full mb-4">
+                            <TCQRCode tcId={tc.tcId} />
+                        </div>
                         {/* Signature Section with spacing */}
-                        <div className="grid grid-cols-3 w-full text-center gap-4 mb-0">
+                        <div className=" ml-20 grid grid-cols-3 w-full text-center gap-4 mb-0 ">
                             <div>
-                            <p className="text-sm text-gray-600">Counter Sign (Optional)</p>
+                            <p className="text-sm text-gray-600 ml-10">Counter Sign (Optional)</p>
                             </div>
                             <div>
                             <p className="text-sm text-gray-600">Prepared By</p>
@@ -385,9 +388,6 @@ export default function viewTC({params}:{params : {id:string}}) {
                         </div>
 
                         {/* QR Code */}
-                        <div className="flex justify-end w-full mb-4">
-                            <TCQRCode tcId={tc.tcId} />
-                        </div>
 
                         {/* Developer Credit absolutely at bottom */}
                         <div className="w-full text-center text-xs text-blue-700 font-extrabold py-2 border-t border-gray-300">
