@@ -57,39 +57,60 @@ useEffect(() => {
   };
 
   useEffect(() => {
-    const fetchTc = async () => {
-      const response = await fetch("/api/tc")
-      const data = await response.json()
-      setTc(data)
-      setFilteredTCs(data)
+  const fetchTc = async () => {
+  try {
+    const response = await fetch("/api/tc");
+    const data = await response.json();
+
+    console.log("Fetched TC data:", data); // ✅ Add this line
+
+    if (Array.isArray(data)) {
+      setTc(data);
+      setFilteredTCs(data);
+    } else {
+      console.error("Expected array but got:", data);
+      setTc([]); // Set to empty array to avoid breaking UI
+      setFilteredTCs([]);
     }
-    fetchTc()
-  }, [])
+  } catch (error) {
+    console.error("Error fetching TCs:", error);
+    setTc([]);
+    setFilteredTCs([]);
+  }
+  };
+  fetchTc();
+  }, []);
 
   const handleSearch = (value: string) => {
-    setSearchTerm(value)
-    const filtered = tc.filter(
-      (tc) =>
-        tc.studentName.toLowerCase().includes(value.toLowerCase()) ||
-        tc.rollNumber.toLowerCase().includes(value.toLowerCase()) ||
-        tc.tcId.toLowerCase().includes(value.toLowerCase())
-        
-        // ||tc.class.toLowerCase().includes(value.toLowerCase())
-    )
-    setFilteredTCs(filtered)
-  }
+    setSearchTerm(value);
 
-  const getTCsThisMonth = () => {
-    const currentMonth = new Date().getMonth()
-    const currentYear = new Date().getFullYear()
-    return tc.filter((tc) => {
-      const date = new Date(tc.issueDate)
-      return (
-        date.getMonth() === currentMonth &&
-        date.getFullYear() === currentYear
-      )
-    }).length
-  }
+    const filtered = Array.isArray(tc)
+      ? tc.filter((tc) =>
+          tc.studentName.toLowerCase().includes(value.toLowerCase()) ||
+          tc.rollNumber.toLowerCase().includes(value.toLowerCase()) ||
+          tc.tcId.toLowerCase().includes(value.toLowerCase())
+        )
+      : [];
+
+    setFilteredTCs(filtered);
+  };
+
+
+const getTCsThisMonth = () => {
+  const currentMonth = new Date().getMonth();
+  const currentYear = new Date().getFullYear();
+
+  return Array.isArray(tc)
+    ? tc.filter((tc) => {
+        const date = new Date(tc.issueDate);
+        return (
+          date.getMonth() === currentMonth &&
+          date.getFullYear() === currentYear
+        );
+      }).length
+    : 0;
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
