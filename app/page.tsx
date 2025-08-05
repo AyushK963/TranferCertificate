@@ -33,8 +33,22 @@ type tc = {
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("")
   const [filteredTCs, setFilteredTCs] = useState<tc[]>([])
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // Adjust per your design
+  const totalPages = Math.ceil(filteredTCs.length / itemsPerPage);
   const [tc, setTc] = useState<tc[]>([])
-  const router = useRouter();
+
+
+
+const paginatedTCs = Array.isArray(filteredTCs)
+  ? filteredTCs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+  : [];
+
+
+// Reset to first page on new search
+useEffect(() => {
+  setCurrentPage(1);
+}, [searchTerm]);
 
   const handleLogout = () => {
     // Delete the cookie manually
@@ -58,7 +72,8 @@ export default function Dashboard() {
       (tc) =>
         tc.studentName.toLowerCase().includes(value.toLowerCase()) ||
         tc.rollNumber.toLowerCase().includes(value.toLowerCase()) ||
-        tc.tcId.toLowerCase().includes(value.toLowerCase()) 
+        tc.tcId.toLowerCase().includes(value.toLowerCase())
+        
         // ||tc.class.toLowerCase().includes(value.toLowerCase())
     )
     setFilteredTCs(filtered)
@@ -90,7 +105,7 @@ export default function Dashboard() {
           <div className="relative w-full sm:flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder="Search by name, roll number, TC ID, or class..."
+              placeholder="Search by name, Sr number, or  TC ID"
               value={searchTerm}
               onChange={(e) => handleSearch(e.target.value)}
               className="pl-10 bg-white shadow-sm border-gray-300"
@@ -136,9 +151,8 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        {/* TC Cards List */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTCs.map((tc) => (
+          {paginatedTCs.map((tc) => (
             <Card key={tc.tcId} className="hover:shadow-lg transition-all bg-white border border-gray-200">
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -151,19 +165,18 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-1 text-sm text-gray-700 mb-4">
                   <p><span className="font-medium">SR No:</span> {tc.rollNumber}</p>
-                  {/* <p><span className="font-medium">Class:</span> {tc.class}</p> */}
                   <p><span className="font-medium">Issue Date:</span> {tc.issueDate}</p>
                   <p><span className="font-medium">Reason:</span> {tc.reasonForLeaving}</p>
                 </div>
                 <div className="flex gap-2">
                   <Link href={`/view/${tc.tcId}`} className="flex-1">
-                    <Button variant="outline" size="sm" className="w-full  hover:bg-green-500">
+                    <Button variant="outline" size="sm" className="w-full hover:bg-green-500">
                       <Eye className="w-4 h-4 mr-1" />
                       View
                     </Button>
                   </Link>
                   <Link href={`/edit/${tc.tcId}`} className="flex-1">
-                    <Button variant="outline" size="sm" className="w-full  hover:bg-green-500">
+                    <Button variant="outline" size="sm" className="w-full hover:bg-green-500">
                       <Edit className="w-4 h-4 mr-1" />
                       Edit
                     </Button>
@@ -173,6 +186,36 @@ export default function Dashboard() {
             </Card>
           ))}
         </div>
+
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-8 gap-4">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className='hover:bg-green-300'
+            >
+              Previous
+            </Button>
+            <span className="text-sm font-medium text-gray-700">
+              Page {currentPage} of {totalPages}
+            </span>
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className='hover:bg-green-300'
+            >
+              Next
+            </Button>
+          </div>
+        )}
+
+
+
+
 
         {/* No Results */}
         {filteredTCs.length === 0 && (
