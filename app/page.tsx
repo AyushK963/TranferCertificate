@@ -37,6 +37,7 @@ export default function Dashboard() {
   const itemsPerPage = 6; // Adjust per your design
   const totalPages = Math.ceil(filteredTCs.length / itemsPerPage);
   const [tc, setTc] = useState<tc[]>([])
+  const router = useRouter();
 
 
 
