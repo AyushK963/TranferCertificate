@@ -6,7 +6,7 @@ export const TCQRCode = ({ tcId }: { tcId: string }) => {
   return (
     <div className="mt-4 text-center">
       <QRCodeCanvas value={verifyURL} size={100} />
-      <p className='text-xs'>Scan Qr to verify</p>
+      <p className='text-xs'>Scan QR to verify</p>
     </div>
   );
 };
